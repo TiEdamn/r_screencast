@@ -5,7 +5,8 @@ import './style.css';
 export default class ArticleList extends PureComponent {
 
     state = {
-        openArticleId: null
+        openArticleId: null,
+        total: 0
     }
 
     render() {
@@ -15,18 +16,26 @@ export default class ArticleList extends PureComponent {
                     article={article}
                     isOpen={this.state.openArticleId === article.id}
                     onBtnClick = {this.handleClick.bind(this, article.id)}
+                    addTotal = {this.addTotal}
                 />
             </li>
         )
 
         return (
-            <ul>
-                {articleElements}
-            </ul>
+            <div>
+                <div>Total likes: {this.state.total}</div>
+                <ul>
+                    {articleElements}
+                </ul>
+            </div>
         )
     }
 
     handleClick = openArticleId => this.setState({
         openArticleId: this.state.openArticleId === openArticleId ? null : openArticleId
-    })
+    });
+
+    addTotal = () => this.setState({
+        total: this.state.total + 1
+    });
 }
